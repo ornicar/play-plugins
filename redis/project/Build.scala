@@ -10,12 +10,11 @@ object MinimalBuild extends Build {
   lazy val repo = if (buildVersion.endsWith("SNAPSHOT")) typesafeSnapshot else typesafe  
   
   lazy val root = Project(id = "play-plugins-redis", base = file("."), settings = Project.defaultSettings).settings(
-    version := buildVersion,
-    publishTo <<= (version) { version: String =>
-                val nexus = "http://repo.typesafe.com/typesafe/"
-                if (version.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "ivy-snapshots/") 
-                else                                   Some("releases"  at nexus + "ivy-releases/")
-    },
+    version := buildVersion + "-hack",
+    publishTo := Some(Resolver.sftp(
+      "iliaz",
+      "scala.iliaz.com"
+    ) as ("scala_iliaz_com", Path.userHome / ".ssh" / "id_rsa")),
     organization := "com.typesafe",
     resolvers += repo,
     resolvers += "Sedis" at "http://guice-maven.googlecode.com/svn/trunk",
