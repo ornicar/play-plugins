@@ -10,7 +10,7 @@ object MinimalBuild extends Build {
   lazy val repo = if (buildVersion.endsWith("SNAPSHOT")) typesafeSnapshot else typesafe  
   
   lazy val root = Project(id = "play-plugins-redis", base = file("."), settings = Project.defaultSettings).settings(
-    version := buildVersion + "-hack",
+    version := "2.0.1-hack2",
     publishTo := Some(Resolver.sftp(
       "iliaz",
       "scala.iliaz.com"
